@@ -45,13 +45,47 @@ End;
 CREATE OR REPLACE PROCEDURE
 BIRTHDAY_SP (AID IN NUMBER, YTA IN NUMBER) AS
 BEGIN
+    SAVEPOINT beforeBirthday;
     UPDATE ANIMALS SET age = age + YTA WHERE id = AID;
     COMMIT;
+
+EXCEPTION
+    WHEN OTHERS THEN ROLLBACK TO beforeBirthday;
 END;
 /
 
 -- Test BIRTHDAY_SP
 BEGIN
-    BIRTHDAY_SP(1, 4);
+    BIRTHDAY_SP(1, 'hi');
 END;
 /
+
+
+-- Cursors: Pointers to result sets which allow for iterating over that result set
+CREATE OR REPLACE PROCEDURE GET_ANIMALS (S OUT SYS_REFCURSOR) AS
+BEGIN
+    OPEN S FOR
+        SELECT name, age FROM ANIMALS;
+END;
+/
+
+-- Running cursor procedure in PL/SQL
+DECLARE
+    S SYS_REFCURSOR;
+    A_NAME ANIMALS.name%TYPE;
+    A_AGE ANIMALS.age%TYPE;
+BEGIN
+    GET_ANIMALS(S);
+    LOOP
+        FETCH S INTO A_NAME, A_AGE;
+        EXIT WHEN S%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(A_NAME || ' ' || A_AGE);
+    END LOOP;
+    CLOSE S;
+END;
+/
+
+
+
+
+

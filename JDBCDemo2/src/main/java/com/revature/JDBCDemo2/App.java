@@ -8,9 +8,14 @@ import com.revature.JDBCDemo2.repository.AnimalDao;
 public class App {
 	public static void main(String[] args) {
 		AnimalDao adao = new AnimalDao();
-		List<Animal> animals = adao.getAnimals();
-		for (Animal a : animals) {
-			System.out.println(a);
-		}
+//		List<Animal> animals = adao.getAnimals();
+//		for (Animal a : animals) {
+//			System.out.println(a);
+//		}
+		//adao.birthday(143, 20);
+		//System.out.println(adao.getAnimalByName("Bobb"));
+		
+		adao.getAnimalsBySp();
+		
 	}
 }
