@@ -1,6 +1,6 @@
 # JDBC + Oracle + Maven
 To install the ojdbc8.jar locally, use this command:
->mvn install:install-file -Dfile=/opt/sqldeveloper/jdbc/lib/ -DgroupId=com.oracle.jdbc -DartifactId=ojdbc8 -Dversion=12.0.1 -Dpackaging=jar
+>mvn install:install-file -Dfile=/opt/sqldeveloper/jdbc/lib/ojdbc8.jar -DgroupId=com.oracle.jdbc -DartifactId=ojdbc8 -Dversion=12.0.1 -Dpackaging=jar
 
 This allows you to include ojdbc8.jar into your pom with the dependency:
 ```
